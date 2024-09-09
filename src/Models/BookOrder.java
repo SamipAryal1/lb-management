@@ -31,12 +31,9 @@ public class BookOrder {
 
     public double calculateTotalPrice() {
         double total = 0.0;
-
-        BookQuantity bq;
-        for(Iterator var3 = this.bookQuantities.iterator(); var3.hasNext(); total += (double)bq.getQuantity() * this.bookPrice) {
-            bq = (BookQuantity)var3.next();
+        for (BookQuantity bq : bookQuantities) {
+            total += bq.getQuantity() * bookPrice;
         }
-
         return total;
     }
 }

@@ -1,6 +1,5 @@
 package Models;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class Order {
@@ -20,12 +19,9 @@ public class Order {
 
     public double calculateTotalPrice() {
         double total = 0.0;
-
-        BookOrder bookOrder;
-        for(Iterator var3 = this.bookOrders.iterator(); var3.hasNext(); total += bookOrder.calculateTotalPrice()) {
-            bookOrder = (BookOrder)var3.next();
+        for (BookOrder order : bookOrders) {
+            total += order.calculateTotalPrice();
         }
-
         return total;
     }
 
@@ -47,15 +43,11 @@ public class Order {
 
     public void setBookOrders(List<BookOrder> bookOrders) {
         this.bookOrders = bookOrders;
-        this.totalPrice = this.calculateTotalPrice();
+        this.totalPrice = this.calculateTotalPrice(); // Recalculate totalPrice
     }
 
     public double getTotalPrice() {
         return this.totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public double getVatRate() {
@@ -64,6 +56,7 @@ public class Order {
 
     public void setVatRate(double vatRate) {
         this.vatRate = vatRate;
+        this.totalPrice = this.calculateTotalPrice();
     }
 
     public double getDiscountRate() {
@@ -72,6 +65,7 @@ public class Order {
 
     public void setDiscountRate(double discountRate) {
         this.discountRate = discountRate;
+        this.totalPrice = this.calculateTotalPrice();
     }
 
     public Customer getCustomer() {
